@@ -1,0 +1,74 @@
+.manage-container {
+  padding: 2rem;
+}
+
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.manage-header h2 {
+  margin: 0;
+  color: #031742;
+}
+
+.add-button, .edit-button, .delete-button {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.3s;
+}
+
+.add-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-button {
+  background-color: #F8C11D;
+  color: black;
+  margin-right: 8px;
+}
+
+.delete-button {
+  background-color: #d93025;
+  color: white;
+}
+
+.add-button:hover, .edit-button:hover, .delete-button:hover {
+  opacity: 0.8;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.alumni-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.alumni-table th, .alumni-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.alumni-table th {
+  background-color: #031742;
+  color: white;
+}
+
+.alumni-table tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.alumni-table tbody tr:hover {
+  background-color: #f1f1f1;
+}

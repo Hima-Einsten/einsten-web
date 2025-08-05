@@ -27,12 +27,34 @@
   gap: 1.5rem;
 }
 
+.manage-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .manage-card {
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   border-left: 5px solid #F8C11D; /* Bright Yellow */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.manage-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.manage-card.disabled {
+  background-color: #f9f9f9;
+  border-left-color: #ccc;
+  cursor: not-allowed;
+}
+
+.manage-card.disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .manage-card h3 {

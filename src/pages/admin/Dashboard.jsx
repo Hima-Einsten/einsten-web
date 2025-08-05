@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -28,14 +28,15 @@ const Dashboard = () => {
       <p>Ini adalah pusat kendali untuk website HIMA EINSTEN.COM. Dari sini Anda bisa mengelola konten website.</p>
       
       <div className="management-links">
-        {/* Placeholder untuk link manajemen */}
-        <div className="manage-card">
-          <h3>Manage Alumni</h3>
-          <p>Tambah, edit, atau hapus data alumni.</p>
-        </div>
-        <div className="manage-card">
+        <Link to="/admin/manage-alumni" className="manage-card-link">
+          <div className="manage-card">
+            <h3>Manage Alumni</h3>
+            <p>Tambah, edit, atau hapus data alumni.</p>
+          </div>
+        </Link>
+        <div className="manage-card disabled">
           <h3>Manage Kegiatan</h3>
-          <p>Perbarui daftar kegiatan dan galeri.</p>
+          <p>Perbarui daftar kegiatan dan galeri. (Segera Hadir)</p>
         </div>
       </div>
     </div>
