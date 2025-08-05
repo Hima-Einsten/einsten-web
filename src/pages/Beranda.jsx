@@ -8,7 +8,7 @@ const Beranda = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <h1>Selamat Datang di HIMA EINSTEN.COM</h1>
-        <p>Himpunan Mahasiswa Elektronika & Instrumentasi yang Berdedikasi dan Inovatif</p>
+        <p>Himpunan Mahasiswa Elektronika Instrumentasi Politeknik Teknologi Nuklir</p>
         <Link to="/profil" className="cta-button">Pelajari Lebih Lanjut</Link>
       </section>
 
