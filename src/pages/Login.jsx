@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Login.css';
 
 const Login = () => {
@@ -7,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Inisialisasi navigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,9 +18,8 @@ const Login = () => {
     const auth = getAuth();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Jika berhasil, Firebase akan secara otomatis mengelola sesi.
-      // Kita akan redirect ke dashboard admin di langkah selanjutnya.
-      alert("Login berhasil! (Redirect akan ditambahkan)");
+      // Jika berhasil, arahkan ke dashboard admin
+      navigate('/admin/dashboard');
     } catch (err) {
       setError("Gagal login. Periksa kembali email dan password Anda.");
       console.error("Firebase login error:", err);
