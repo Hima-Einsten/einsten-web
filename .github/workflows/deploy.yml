@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20' # FIX: Menggunakan versi Node.js yang kompatibel
 
       # 3. Install semua dependensi proyek
       - name: Install Dependencies
@@ -45,6 +45,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HIMA_EINSTEN }}' # FIX: Menggunakan nama secret yang benar
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_HIMA_EINSTEN }}'
           channelId: live
           projectId: hima-einsten
