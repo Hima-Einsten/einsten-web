@@ -1,24 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import './Alumni.css';
 
-// CONTOH DATA ALUMNI: Nantinya, ini akan datang dari database (Firebase Firestore)
-const dataAlumni = [
-  { id: 1, nama: "Budi Santoso", angkatan: 2018, perusahaan: "PT. Teknologi Maju", posisi: "Software Engineer" },
-  { id: 2, nama: "Citra Lestari", angkatan: 2019, perusahaan: "Startup Inovasi", posisi: "Product Manager" },
-  { id: 3, nama: "Agus Wijaya", angkatan: 2018, perusahaan: "BUMN Karya", posisi: "Electrical Engineer" },
-  { id: 4, nama: "Dewi Anggraini", angkatan: 2020, perusahaan: "PT. Teknologi Maju", posisi: "Data Analyst" },
-  { id: 5, nama: "Eko Prasetyo", angkatan: 2019, perusahaan: "Konsultan Digital", posisi: "IT Consultant" },
-];
-
 const Alumni = () => {
+  const [alumniList, setAlumniList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Filter alumni berdasarkan nama, perusahaan, atau posisi
-  const filteredAlumni = dataAlumni.filter(alumni =>
-    alumni.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    alumni.perusahaan.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    alumni.posisi.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const fetchAlumni = async () => {
+      try {
+        const db = getFirestore();
+        const alumniCol = collection(db, 'alumni');
+        const alumniSnapshot = await getDocs(alumniCol);
+        const fetchedAlumni = alumniSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setAlumniList(fetchedAlumni);
+        setFilteredList(fetchedAlumni);
+      } catch (err) {
+        setError("Gagal mengambil data alumni. Silakan coba lagi nanti.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAlumni();
+  }, []); // Array dependensi kosong, sehingga hanya berjalan sekali saat mount
+
+  useEffect(() => {
+    const results = alumniList.filter(alumni =>
+      (alumni.nama?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+      (alumni.perusahaan?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+      (alumni.posisi?.toLowerCase() || '').includes(searchTerm.toLowerCase())
+    );
+    setFilteredList(results);
+  }, [searchTerm, alumniList]);
+
+  if (loading) {
+    return <div className="page-content"><p>Loading data alumni...</p></div>;
+  }
+
+  if (error) {
+    return <div className="page-content"><p className="error-message">{error}</p></div>;
+  }
 
   return (
     <div className="page-content">
@@ -30,21 +59,26 @@ const Alumni = () => {
           type="text"
           placeholder="Cari nama, perusahaan, atau posisi..."
           className="search-bar"
+          value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
       <div className="alumni-list">
-        {filteredAlumni.map(alumni => (
-          <div key={alumni.id} className="alumni-card">
-            <h3>{alumni.nama}</h3>
-            <p className="angkatan">Angkatan {alumni.angkatan}</p>
-            <div className="pekerjaan-info">
-              <p><strong>Perusahaan:</strong> {alumni.perusahaan}</p>
-              <p><strong>Posisi:</strong> {alumni.posisi}</p>
+        {filteredList.length > 0 ? (
+          filteredList.map(alumni => (
+            <div key={alumni.id} className="alumni-card">
+              <h3>{alumni.nama}</h3>
+              <p className="angkatan">Angkatan {alumni.angkatan}</p>
+              <div className="pekerjaan-info">
+                <p><strong>Perusahaan:</strong> {alumni.perusahaan}</p>
+                <p><strong>Posisi:</strong> {alumni.posisi}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>Tidak ada data alumni yang cocok dengan pencarian Anda.</p>
+        )}
       </div>
     </div>
   );
