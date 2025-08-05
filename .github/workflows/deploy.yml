@@ -1,0 +1,45 @@
+# Nama alur kerja (workflow)
+name: Deploy to Firebase Hosting on Push
+
+# Pemicu (trigger): jalankan workflow ini setiap kali ada push ke branch 'main'
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_deploy:
+    # Gunakan lingkungan virtual Ubuntu terbaru
+    runs-on: ubuntu-latest
+
+    # Tentukan langkah-langkah yang harus dijalankan
+    steps:
+      # 1. Ambil kode dari repositori
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. Siapkan lingkungan Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Gunakan versi Node.js LTS yang stabil
+
+      # 3. Install semua dependensi proyek (menggunakan 'npm ci' lebih cepat dan andal untuk CI/CD)
+      - name: Install Dependencies
+        working-directory: ./web-hima
+        run: npm ci
+
+      # 4. Bangun aplikasi React untuk produksi
+      - name: Build Project
+        working-directory: ./web-hima
+        run: npm run build
+
+      # 5. Deploy ke Firebase Hosting
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_TOKEN }}' # Gunakan token yang Anda simpan
+          channelId: live
+          projectId: hima-einsten # ID Proyek Firebase Anda
+          entryPoint: ./web-hima # Tentukan direktori kerja

@@ -13,6 +13,7 @@ const Header = () => {
           <li><Link to="/">Beranda</Link></li>
           <li><Link to="/profil">Profil</Link></li>
           <li><Link to="/kegiatan">Kegiatan</Link></li>
+          <li><Link to="/alumni">Alumni</Link></li>
           <li><Link to="/informasi">Informasi</Link></li>
         </ul>
       </nav>

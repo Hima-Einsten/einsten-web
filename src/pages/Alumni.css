@@ -1,0 +1,44 @@
+.search-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.search-bar {
+  width: 50%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.alumni-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.alumni-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-left: 5px solid #031742; /* Dark Blue */
+}
+
+.alumni-card h3 {
+  margin-top: 0;
+  color: #031742; /* Dark Blue */
+  font-size: 1.5rem;
+}
+
+.alumni-card .angkatan {
+  font-style: italic;
+  color: #666;
+  margin-top: -10px;
+  margin-bottom: 1rem;
+}
+
+.pekerjaan-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
