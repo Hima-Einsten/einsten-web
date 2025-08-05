@@ -6,7 +6,8 @@ import Beranda from './pages/Beranda.jsx';
 import Profil from './pages/Profil.jsx';
 import Kegiatan from './pages/Kegiatan.jsx';
 import Informasi from './pages/Informasi.jsx';
-import Alumni from './pages/Alumni.jsx'; // Import halaman Alumni
+import Alumni from './pages/Alumni.jsx';
+import Login from './pages/Login.jsx'; // Import halaman Login
 import './App.css';
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
             <Route path="/" element={<Beranda />} />
             <Route path="/profil" element={<Profil />} />
             <Route path="/kegiatan" element={<Kegiatan />} />
-            <Route path="/alumni" element={<Alumni />} /> {/* Tambahkan rute Alumni */}
+            <Route path="/alumni" element={<Alumni />} />
             <Route path="/informasi" element={<Informasi />} />
+            <Route path="/login" element={<Login />} /> {/* Tambahkan rute Login */}
           </Routes>
         </div>
         <Footer />
