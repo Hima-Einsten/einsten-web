@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Import useCallback
 import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, setDoc } from 'firebase/firestore';
-import AlumniFormModal from './AlumniFormModal'; // Import modal
+import AlumniFormModal from './AlumniFormModal';
 import './ManageAlumni.css';
 
 const ManageAlumni = () => {
@@ -11,21 +11,22 @@ const ManageAlumni = () => {
 
   const db = getFirestore();
 
-  const fetchAlumni = async () => {
+  // Bungkus fetchAlumni dengan useCallback
+  const fetchAlumni = useCallback(async () => {
     setLoading(true);
     const alumniCol = collection(db, 'alumni');
     const alumniSnapshot = await getDocs(alumniCol);
     const fetchedAlumni = alumniSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setAlumniList(fetchedAlumni);
     setLoading(false);
-  };
+  }, [db]); // db dari getFirestore() stabil dan tidak akan menyebabkan re-render
 
   useEffect(() => {
     fetchAlumni();
-  }, []);
+  }, [fetchAlumni]); // Tambahkan fetchAlumni ke dependency array
 
   const handleAddNew = () => {
-    setEditingAlumnus(null); // Pastikan tidak ada data edit
+    setEditingAlumnus(null);
     setIsModalOpen(true);
   };
 
@@ -38,7 +39,7 @@ const ManageAlumni = () => {
     if (window.confirm("Apakah Anda yakin ingin menghapus data alumni ini?")) {
       try {
         await deleteDoc(doc(db, "alumni", id));
-        fetchAlumni(); // Refresh data
+        fetchAlumni();
       } catch (error) {
         alert("Gagal menghapus data.");
       }
@@ -48,15 +49,13 @@ const ManageAlumni = () => {
   const handleSave = async (formData) => {
     try {
       if (editingAlumnus) {
-        // Mode Edit: update dokumen yang ada
         const docRef = doc(db, "alumni", editingAlumnus.id);
         await setDoc(docRef, formData, { merge: true });
       } else {
-        // Mode Tambah: buat dokumen baru
         await addDoc(collection(db, "alumni"), formData);
       }
       setIsModalOpen(false);
-      fetchAlumni(); // Refresh data
+      fetchAlumni();
     } catch (error) {
       alert("Gagal menyimpan data.");
       console.error(error);
