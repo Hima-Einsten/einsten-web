@@ -1,0 +1,45 @@
+.page-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #031742; /* Dark Blue */
+}
+
+.profil-section {
+  background-color: #ffffff;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.profil-section h2 {
+  border-bottom: 2px solid #F8C11D; /* Bright Yellow */
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: #031742; /* Dark Blue */
+}
+
+.visi-misi {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.visi, .misi {
+  flex: 1;
+  min-width: 300px;
+}
+
+.misi ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.struktur-placeholder {
+  text-align: center;
+  padding: 2rem;
+  border: 2px dashed #BABABA; /* Grey */
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
