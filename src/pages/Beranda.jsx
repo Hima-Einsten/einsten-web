@@ -95,7 +95,9 @@ const Beranda = () => {
           ) : kegiatanList.length > 0 ? (
             kegiatanList.map(kegiatan => (
               <div className="card" key={kegiatan.id}>
-                <img src={kegiatan.imageUrl} alt="Kegiatan" className="card-image" />
+                <div className="card-image">
+                  <img src={kegiatan.imageUrl} alt="Kegiatan" />
+                </div>
                 <div className="card-content">
                   <h4>{kegiatan.title}</h4>
                   <p>{kegiatan.description}</p>

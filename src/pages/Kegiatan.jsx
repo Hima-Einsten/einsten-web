@@ -38,10 +38,12 @@ const Kegiatan = () => {
         <div className="kegiatan-grid">
           {kegiatanList.map(kegiatan => (
             <div key={kegiatan.id} className="kegiatan-card">
-              <img src={kegiatan.imageUrl} alt="Kegiatan" className="kegiatan-gambar" />
+              <div className="kegiatan-gambar">
+              <img src={kegiatan.imageUrl} alt="Kegiatan" />
+            </div>
               <div className="kegiatan-info">
                 <h3>{kegiatan.title}</h3>
-                <span className="kegiatan-date">{new Date(kegiatan.activityDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span className="kegiatan-date">{kegiatan.activityDate}</span>
                 <p>{kegiatan.description}</p>
               </div>
             </div>

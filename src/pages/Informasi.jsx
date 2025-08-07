@@ -14,20 +14,14 @@ const Informasi = () => {
         <div className="info-card contact-details">
           <h2>Detail Kontak</h2>
           <ul>
-            <li><strong>Email:</strong> <a href="mailto:kontak@einsten.com">kontak@einsten.com</a></li>
-            <li><strong>Instagram:</strong> <a href="https://instagram.com/hima_einsten" target="_blank" rel="noopener noreferrer">@hima_einsten</a></li>
-            {/* TAMBAHKAN KONTAK LAINNYA DI SINI (MISAL: LINE, WHATSAPP) */}
+            <li><strong>Email:</strong> <a href="mailto:himaeisnten.com@gmail.com">himaeinsten.com@gmail.com</a></li>
+            <li><strong>Instagram:</strong> <a href="https://instagram.com/himaeinsten" target="_blank" rel="noopener noreferrer">@himaeinsten</a></li>
           </ul>
         </div>
 
         <div className="info-card location">
           <h2>Lokasi Sekretariat</h2>
-          <div className="map-placeholder">
-            {/* GANTI DENGAN EMBED GOOGLE MAPS ATAU GAMBAR PETA */}
-            <p>Gedung A Lantai 2, Kampus Politeknik</p>
-            <p>Jalan Pendidikan No. 1, Kota Teknologi</p>
-            <p>(Placeholder Peta Lokasi)</p>
-          </div>
+          <iframe src="https://maps.google.com/maps?q=-7.7784133,110.4117608&output=embed" width="100%" height="300" style={{border: '0'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Lokasi Sekretariat HIMA Einstein"></iframe>
         </div>
       </div>
     </div>

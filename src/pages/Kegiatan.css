@@ -28,7 +28,17 @@
 
 .kegiatan-gambar {
   width: 100%;
-  height: 200px;
+  position: relative; /* Container for aspect ratio */
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9 / 16 * 100%) */
+  overflow: hidden;
+}
+
+.kegiatan-gambar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -95,7 +105,7 @@
   }
 
   .kegiatan-gambar {
-    height: 180px;
+    /* No need to change padding-bottom here, it's already responsive */
   }
 
   .kegiatan-info h3 {

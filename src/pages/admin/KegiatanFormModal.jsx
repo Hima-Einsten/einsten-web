@@ -4,7 +4,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import './KegiatanFormModal.css';
 
 // Fungsi untuk mendapatkan gambar yang sudah di-crop dalam format Base64
-function getCroppedImg(image, crop) {
+function getCroppedImg(image, crop, quality = 0.9) {
   const canvas = document.createElement('canvas');
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
@@ -25,7 +25,7 @@ function getCroppedImg(image, crop) {
   );
 
   return new Promise((resolve) => {
-    resolve(canvas.toDataURL('image/jpeg'));
+    resolve(canvas.toDataURL('image/jpeg', quality));
   });
 }
 
@@ -138,7 +138,7 @@ const KegiatanFormModal = ({ isOpen, onClose, onSave, kegiatan }) => {
           </div>
           <div className="form-group">
             <label htmlFor="activityDate">Tanggal Kegiatan</label>
-            <input type="date" id="activityDate" name="activityDate" value={formData.activityDate} onChange={handleChange} required />
+            <input type="text" id="activityDate" name="activityDate" value={formData.activityDate} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="image">Gambar Kegiatan (Rasio 16:9)</label>
