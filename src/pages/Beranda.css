@@ -5,18 +5,18 @@
 .hero-section {
   text-align: center;
   padding: 4rem 2rem;
-  background-color: #8EACCD; /* Light Blue */ 
+  background-color: #031742; /* Dark Blue */
 }
 
 .hero-section h1 {
   font-size: 2.8rem;
   margin-bottom: 1rem;
-  color: #031742; /* Dark Blue */
+  color: #FFFFFF; /* White */
 }
 
 .hero-section p {
   font-size: 1.2rem;
-  color: #000000; /* Black */
+  color: #E0E0E0; /* Light Grey */
   margin-bottom: 2rem;
 }
 
@@ -49,10 +49,9 @@
 
 .testimonial-section {
   padding: 3rem 2rem;
-  max-width: 800px;
   margin: 0 auto;
   text-align: center;
-  background-color: #f9fafb;
+  background-color: #f9fafb; /* Light grey, almost white */
 }
 
 .testimonial-card {

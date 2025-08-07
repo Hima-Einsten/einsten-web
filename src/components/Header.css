@@ -3,16 +3,30 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #031742; /* Dark Blue */
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  color: #031742; /* Dark Blue */
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-img {
+  max-height: 50px; /* You can adjust this value */
+  width: auto;
 }
 
 .logo a {
-  color: white;
+  color: #031742; /* Dark Blue */
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
@@ -27,9 +41,10 @@
 }
 
 .header nav a {
-  color: white;
+  color: #031742; /* Dark Blue */
   text-decoration: none;
   font-size: 1.1rem;
+  font-weight: bold; /* Added for emphasis */
   transition: color 0.3s;
 }
 

@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import logoHima from '../assets/logo/logo einsten.png';
 
 const Header = () => {
   return (
     <header className="header">
-      <div className="logo">
-        <Link to="/">HIMA EINSTEN.COM</Link>
+      <div className="logo-container">
+        <img src={logoHima} alt="Logo Hima" className="logo-img" />
+        <div className="logo">
+          <Link to="/">HIMA EINSTEN.COM</Link>
+        </div>
       </div>
       <nav>
         <ul>

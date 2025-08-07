@@ -1,7 +1,8 @@
 .footer {
-  background-color: #031742; /* Dark Blue */
-  color: #BABABA; /* Grey */
+  background-color: #FFFFFF; /* White */
+  color: #031742; /* Dark Blue */
   text-align: center;
   padding: 1.5rem;
   margin-top: auto;
+  border-top: 1px solid #E0E0E0; /* Light grey border */
 }

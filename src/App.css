@@ -23,5 +23,8 @@ body, html, #root {
 .page-content {
   padding: 2rem;
   max-width: 960px;
-  margin: 0 auto;
+  margin: 2rem auto; /* Added top/bottom margin */
+  background-color: #FFFFFF; /* White background for content */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
 }
