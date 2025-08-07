@@ -5,7 +5,8 @@
 .hero-section {
   text-align: center;
   padding: 4rem 2rem;
-  background-color: #8EACCD; /* Light Blue */
+  /* background-image: url('/src/assets/background.JPG'); */
+  background-color: #8EACCD; /* Light Blue */ 
 }
 
 .hero-section h1 {

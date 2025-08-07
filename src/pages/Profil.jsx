@@ -9,8 +9,9 @@ const Profil = () => {
       <section className="profil-section">
         <h2>Deskripsi Himpunan</h2>
         <p>
-          {/* GANTI DENGAN DESKRIPSI LENGKAP HIMPUNAN ANDA */}
-          Ini adalah tempat untuk deskripsi lengkap mengenai Himpunan Mahasiswa Elektronika dan Instrumentasi. Jelaskan sejarah singkat, tujuan, dan apa yang membuat himpunan ini spesial.
+          Himpunan Mahasiswa Elektronika Instrumentasi (Hima Einsten.com) adalah organisasi kemahasiswaan yang menaungi mahasiswa Program Studi Elektonika 
+          Instrumentasi di Politeknik Teknologi Nuklir Indonesia. Hima Einsten.com bertujuan untuk menjadi wadak komunikasi, pengembangan potensi, dan penghubung mahasiswa
+          Elektronika Instrumentasi.
         </p>
       </section>
 
@@ -18,18 +19,18 @@ const Profil = () => {
         <div className="visi">
           <h2>Visi</h2>
           <p>
-            {/* GANTI DENGAN VISI HIMPUNAN ANDA */}
-            Menjadi wadah aspirasi dan pengembangan diri bagi mahasiswa Elektronika dan Instrumentasi untuk menciptakan insan yang unggul dan berdaya saing global.
+            Menjadikan Hima Einsten.com sebagai wadah Mahasiswa Elektronika Instrumentasi untuk berkembang secara
+            Progresif, Inovatif, dan Berdaya Saing Tinggi dengan Menjunjung Asas Kekeluargaan dan Mengedepankan Profesionalitas.
           </p>
         </div>
         <div className="misi">
           <h2>Misi</h2>
-          {/* GANTI DENGAN MISI HIMPUNAN ANDA */}
           <ul>
-            <li>Menyelenggarakan kegiatan yang meningkatkan kompetensi akademik dan non-akademik.</li>
-            <li>Membangun relasi yang kuat antara mahasiswa, alumni, dan industri.</li>
-            <li>Mengoptimalkan potensi mahasiswa untuk berkontribusi kepada masyarakat.</li>
-            <li>Menciptakan lingkungan organisasi yang suportif dan profesional.</li>
+            <li>Memperkuat koordinasi, kerjasama, dan kolaborasi yang terjalin di Hima Einsten.com baik antar internal maupun dengan eksternal organisasi.</li>
+            <li>Melaksanakan dan mengoptimalkan program kerja yang sudah terlaksanan dan menciptakan inovasi baru yang adaktif untuk memajukan Hima EInsten.com.</li>
+            <li>Mengembangkan potensi akademik dan non-akademik yang dimiliki mahasiswa Elektronika Instrumentasi.</li>
+            <li>Menerapkan prinsip kerja yang mengedepankan profesionalitas namun tetap menjunjung asas kekeluargaan.</li>
+            <li>Menciptakan anggota Hima Einsten.com yang memiliki karakter yang bertanggung jawab dan konsisten dalam berorganisasi.</li>
           </ul>
         </div>
       </section>
