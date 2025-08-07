@@ -48,7 +48,7 @@
 }
 
 .testimonial-section {
-  padding: 3rem 2rem;
+  padding: 3rem 20px; /* Adjusted horizontal padding */
   margin: 0 auto;
   text-align: center;
   background-color: #f9fafb; /* Light grey, almost white */
@@ -57,6 +57,8 @@
 .testimonial-card {
   padding: 1rem;
   outline: none;
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%; /* Take full width of parent */
 }
 
 .testimonial-quote {
@@ -66,6 +68,9 @@
   line-height: 1.7;
   margin-bottom: 1.5rem;
   min-height: 100px; /* Beri tinggi minimum agar layout stabil */
+  word-wrap: break-word; /* Memaksa teks untuk wrap */
+  overflow-wrap: break-word; /* Standar modern untuk word-wrap */
+  white-space: normal; /* Memastikan wrapping normal */
 }
 
 .testimonial-author {
@@ -148,8 +153,9 @@
   flex-grow: 1;
   /* Menerapkan line-clamp */
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Batasi hingga 4 baris */
+  -webkit-line-clamp: 6; 
   -webkit-box-orient: vertical;  
   overflow: hidden;
   text-overflow: ellipsis;
+  line-clamp: 6;
 }

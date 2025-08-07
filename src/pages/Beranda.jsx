@@ -75,7 +75,7 @@ const Beranda = () => {
 
       {/* Testimonial Section */}
       <section className="testimonial-section">
-        <h2>Kesan Hima Einsten.com</h2>
+        <h2>Apa Kata Teman - Teman Einsten.com??</h2>
         <Slider {...testimonialSettings}>
           {testimonials.map((testimonial, index) => (
             <div key={index} className="testimonial-card">

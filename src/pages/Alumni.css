@@ -42,3 +42,55 @@
   margin: 5px 0;
   font-size: 1rem;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 80%;
+  }
+
+  .alumni-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .alumni-card {
+    padding: 1rem;
+  }
+
+  .alumni-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .pekerjaan-info p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    width: 95%;
+    font-size: 0.9rem;
+  }
+
+  .alumni-list {
+    grid-template-columns: 1fr; /* Single column layout */
+    padding: 0 1rem;
+  }
+
+  .alumni-card {
+    padding: 1.2rem;
+  }
+
+  .alumni-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .alumni-card .angkatan {
+    font-size: 0.9rem;
+  }
+
+  .pekerjaan-info p {
+    font-size: 0.85rem;
+  }
+}

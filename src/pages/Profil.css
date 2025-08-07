@@ -44,3 +44,60 @@
   border-radius: 8px;
   background-color: #f9f9f9;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .profil-section {
+    padding: 1.5rem;
+  }
+
+  .profil-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .visi-misi {
+    flex-direction: column; /* Stack visi and misi vertically */
+    gap: 1.5rem;
+  }
+
+  .visi, .misi {
+    min-width: unset; /* Remove min-width constraint */
+    width: 100%;
+  }
+
+  .misi ul {
+    padding-left: 15px;
+  }
+
+  .struktur-placeholder {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .profil-section {
+    padding: 1rem;
+  }
+
+  .profil-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .profil-section p, .misi li {
+    font-size: 0.9rem;
+  }
+
+  .struktur-placeholder {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}

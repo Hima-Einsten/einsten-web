@@ -59,3 +59,51 @@
   background-color: #007bff;
   color: white;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-content form input {
+    padding: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .modal-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.8rem;
+  }
+
+  .modal-actions button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .modal-content form input {
+    font-size: 0.85rem;
+  }
+
+  .modal-actions button {
+    font-size: 0.85rem;
+  }
+}

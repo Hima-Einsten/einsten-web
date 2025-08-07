@@ -61,3 +61,53 @@
   margin-top: 0;
   color: #031742; /* Dark Blue */
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .logout-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .management-links {
+    grid-template-columns: 1fr; /* Stack cards vertically */
+    gap: 1rem;
+  }
+
+  .manage-card {
+    padding: 1.2rem;
+  }
+
+  .manage-card h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    padding: 0 1rem;
+  }
+
+  .logout-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .manage-card {
+    padding: 1rem;
+  }
+
+  .manage-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .manage-card p {
+    font-size: 0.9rem;
+  }
+}

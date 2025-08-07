@@ -91,3 +91,77 @@
 .delete-button:hover {
   background-color: #c82333;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .manage-container {
+    padding: 1rem;
+  }
+
+  .manage-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .manage-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .add-button {
+    width: 100%;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .kegiatan-table th, .kegiatan-table td {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .kegiatan-preview-img {
+    max-width: 100px;
+    max-height: 70px;
+  }
+
+  .deskripsi-cell {
+    max-width: 250px;
+  }
+
+  .edit-button, .delete-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .add-button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .kegiatan-table th, .kegiatan-table td {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .kegiatan-preview-img {
+    max-width: 80px;
+    max-height: 50px;
+  }
+
+  .deskripsi-cell {
+    max-width: 150px;
+  }
+
+  .edit-button, .delete-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    margin-right: 0.3rem;
+  }
+}
