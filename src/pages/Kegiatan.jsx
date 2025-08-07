@@ -1,51 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs, query, orderBy } from 'firebase/firestore';
 import './Kegiatan.css';
 
-// Anda bisa membuat data ini dinamis dari API atau file JSON nantinya
-const daftarKegiatan = [
-  {
-    id: 1,
-    nama: "Seminar Teknologi Terbaru",
-    deskripsi: "Seminar tahunan yang membahas perkembangan teknologi terkini di dunia industri.",
-    gambar: "https://via.placeholder.com/300x200.png?text=Seminar" // Ganti dengan URL gambar Anda
-  },
-  {
-    id: 2,
-    nama: "Workshop Mikrokontroler",
-    deskripsi: "Pelatihan praktis untuk anggota dalam memprogram dan merakit perangkat berbasis mikrokontroler.",
-    gambar: "https://via.placeholder.com/300x200.png?text=Workshop" // Ganti dengan URL gambar Anda
-  },
-  {
-    id: 3,
-    nama: "Bakti Sosial",
-    deskripsi: "Kegiatan pengabdian masyarakat sebagai bentuk kontribusi sosial dari himpunan.",
-    gambar: "https://via.placeholder.com/300x200.png?text=Bakti+Sosial" // Ganti dengan URL gambar Anda
-  },
-  {
-    id: 4,
-    nama: "Kompetisi Robotik",
-    deskripsi: "Ajang kompetisi internal untuk mengasah kreativitas dan kemampuan problem-solving.",
-    gambar: "https://via.placeholder.com/300x200.png?text=Robotik" // Ganti dengan URL gambar Anda
-  }
-];
-
 const Kegiatan = () => {
+  const [kegiatanList, setKegiatanList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchKegiatan = async () => {
+      setLoading(true);
+      const db = getFirestore();
+      const kegiatanCol = collection(db, 'kegiatan');
+      // Mengurutkan berdasarkan tanggal kegiatan, yang terbaru di atas
+      const q = query(kegiatanCol, orderBy('activityDate', 'desc'));
+      const kegiatanSnapshot = await getDocs(q);
+      const fetchedKegiatan = kegiatanSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setKegiatanList(fetchedKegiatan);
+      setLoading(false);
+    };
+
+    fetchKegiatan().catch(error => {
+      console.error("Gagal mengambil data kegiatan:", error);
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <div className="page-content">
       <h1 className="page-title">Kegiatan Himpunan</h1>
       <p className="page-intro">Berikut adalah beberapa kegiatan yang kami adakan untuk mengembangkan potensi mahasiswa.</p>
       
-      <div className="kegiatan-grid">
-        {daftarKegiatan.map(kegiatan => (
-          <div key={kegiatan.id} className="kegiatan-card">
-            <img src={kegiatan.gambar} alt={kegiatan.nama} className="kegiatan-gambar" />
-            <div className="kegiatan-info">
-              <h3>{kegiatan.nama}</h3>
-              <p>{kegiatan.deskripsi}</p>
+      {loading ? (
+        <p>Loading kegiatan...</p>
+      ) : kegiatanList.length === 0 ? (
+        <p>Belum ada data kegiatan yang tersedia.</p>
+      ) : (
+        <div className="kegiatan-grid">
+          {kegiatanList.map(kegiatan => (
+            <div key={kegiatan.id} className="kegiatan-card">
+              <img src={kegiatan.imageUrl} alt="Kegiatan" className="kegiatan-gambar" />
+              <div className="kegiatan-info">
+                <h3>{kegiatan.title}</h3>
+                <span className="kegiatan-date">{new Date(kegiatan.activityDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <p>{kegiatan.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

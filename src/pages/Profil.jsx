@@ -9,7 +9,7 @@ const Profil = () => {
       <section className="profil-section">
         <h2>Deskripsi Himpunan</h2>
         <p>
-          Himpunan Mahasiswa Elektronika Instrumentasi (Hima Einsten.com) adalah organisasi kemahasiswaan yang menaungi mahasiswa Program Studi Elektonika 
+          Himpunan Mahasiswa Elektronika Instrumentasi (Hima Einsten.com) adalah organisasi kemahasiswaan yang menaungi mahasiswa Program Studi Elektronika 
           Instrumentasi di Politeknik Teknologi Nuklir Indonesia. Hima Einsten.com bertujuan untuk menjadi wadak komunikasi, pengembangan potensi, dan penghubung mahasiswa
           Elektronika Instrumentasi.
         </p>

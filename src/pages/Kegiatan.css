@@ -40,6 +40,14 @@
   margin-top: 0;
   font-size: 1.4rem;
   color: #031742; /* Dark Blue */
+  margin-bottom: 0.5rem;
+}
+
+.kegiatan-date {
+  display: block;
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1rem;
 }
 
 .kegiatan-info p {

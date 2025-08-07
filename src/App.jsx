@@ -11,7 +11,8 @@ import Informasi from './pages/Informasi.jsx';
 import Alumni from './pages/Alumni.jsx';
 import Login from './pages/Login.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
-import ManageAlumni from './pages/admin/ManageAlumni.jsx'; // Import ManageAlumni
+import ManageAlumni from './pages/admin/ManageAlumni.jsx';
+import ManageKegiatan from './pages/admin/ManageKegiatan.jsx';
 import './App.css';
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
               <Route 
                 path="/admin/manage-alumni" 
                 element={<ProtectedRoute><ManageAlumni /></ProtectedRoute>} 
+              />
+              <Route 
+                path="/admin/manage-kegiatan" 
+                element={<ProtectedRoute><ManageKegiatan /></ProtectedRoute>} 
               />
             </Routes>
           </div>

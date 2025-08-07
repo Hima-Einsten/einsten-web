@@ -34,10 +34,12 @@ const Dashboard = () => {
             <p>Tambah, edit, atau hapus data alumni.</p>
           </div>
         </Link>
-        <div className="manage-card disabled">
-          <h3>Manage Kegiatan</h3>
-          <p>Perbarui daftar kegiatan dan galeri. (Segera Hadir)</p>
-        </div>
+        <Link to="/admin/manage-kegiatan" className="manage-card-link">
+          <div className="manage-card">
+            <h3>Manage Kegiatan</h3>
+            <p>Perbarui daftar kegiatan dan galeri.</p>
+          </div>
+        </Link>
       </div>
     </div>
   );
