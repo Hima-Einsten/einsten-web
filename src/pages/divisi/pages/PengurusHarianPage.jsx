@@ -10,7 +10,7 @@ const pageData = {
   title: 'Pengurus Harian',
   description: 'Pengurus Harian (PH) adalah badan eksekutif utama himpunan yang bertanggung jawab atas koordinasi, pengawasan, dan pelaksanaan seluruh program kerja. PH memastikan semua divisi berjalan sinergis untuk mencapai visi dan misi himpunan.',
   ketuaHimpunan: { nama: 'Haidar Umar', nim: '10200001' },
-  //wakilKetuaHimpunan: { nama: 'Nama Wakil Ketua Himpunan', nim: '10200002' },
+  wakilKetuaHimpunan: { nama: 'Nama Wakil Ketua Himpunan', nim: '10200002' },
   sekretaris1: { nama: 'Ni Mas aqila Najwan', nim: '10200003' },
   sekretaris2: { nama: 'Naila Qarirah', nim: '10200004' },
   Kesekretariatan: { nama: 'Rakan Ibrahim Widjisasono', nim: '10200005' },
@@ -36,48 +36,52 @@ const PengurusHarianPage = () => {
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>
-        <h4>Ketua Himpunan</h4>
-        <p>
-          {pageData.ketuaHimpunan.nama}
-          <span className="member-nim">{pageData.ketuaHimpunan.nim}</span>
-        </p>
-        {/* Hapus komen ini jika ingin menambahkan data wakil ketua himpunan
-        <h4>Wakil Ketua Himpunan</h4>
-        <p>
-          {pageData.wakilKetuaHimpunan.nama}
-          <span className="member-nim">{pageData.wakilKetuaHimpunan.nim}</span>
-        </p> 
-        */}
-        <h4>Sekretaris Umum</h4>
-        <p>
-          {pageData.sekretaris1.nama}
-          <span className="member-nim">{pageData.sekretaris1.nim}</span>
-        </p>
-        <h4>Sekretaris 2</h4>
-        <p>
-          {pageData.sekretaris2 ? pageData.sekretaris2.nama : 'Belum ada data'}
-          <span className="member-nim">{pageData.sekretaris2 ? pageData.sekretaris2.nim : 'Belum ada data'}</span>
-        </p>
-        <h4>Kesekretariatan</h4>
-        <p>
-          {pageData.Kesekretariatan.nama}
-          <span className="member-nim">{pageData.Kesekretariatan.nim}</span>
-        </p>
-        <h4>Bendahara Umum</h4>
-        <p>
-          {pageData.bendahara1.nama}
-          <span className="member-nim">{pageData.bendahara1.nim}</span>
-        </p>
-        <h4>Bendahara 2</h4>
-        <p>
-          {pageData.bendahara2.nama}
-          <span className="member-nim">{pageData.bendahara2.nim}</span>
-        </p>
-        <h4>Bendahara 3</h4>
-        <p>
-          {pageData.bendahara3.nama}
-          <span className="member-nim">{pageData.bendahara3.nim}</span>
-        </p>
+        <div className="struktur-ph-grid">
+          <div className="ketua-himpunan-container">
+            <div className="member-card">
+              <h4>Ketua Himpunan</h4>
+              <p>{pageData.ketuaHimpunan.nama}<span className="member-nim">{pageData.ketuaHimpunan.nim}</span></p>
+            </div>
+            {/* Uncomment ini jika memiliki Wakil Ketua Himpunan
+            <div className="member-card">
+              <h4>Wakil Ketua Himpunan</h4>
+              <p>{pageData.wakilKetuaHimpunan?.nama}<span className="member-nim">{pageData.wakilKetuaHimpunan?.nim}</span></p>
+            </div>
+            */}
+          </div>
+
+          <div className="sekretaris-container">
+            <h3>Sekretaris</h3>
+            <div className="member-card">
+              <h4>Sekretaris Umum</h4>
+              <p>{pageData.sekretaris1.nama}<span className="member-nim">{pageData.sekretaris1.nim}</span></p>
+            </div>
+            <div className="member-card">
+              <h4>Sekretaris 2</h4>
+              <p>{pageData.sekretaris2.nama}<span className="member-nim">{pageData.sekretaris2.nim}</span></p>
+            </div>
+            <div className="member-card">
+              <h4>Kesekretariatan</h4>
+              <p>{pageData.Kesekretariatan.nama}<span className="member-nim">{pageData.Kesekretariatan.nim}</span></p>
+            </div>
+          </div>
+
+          <div className="bendahara-container">
+            <h3>Bendahara</h3>
+            <div className="member-card">
+              <h4>Bendahara Umum</h4>
+              <p>{pageData.bendahara1.nama}<span className="member-nim">{pageData.bendahara1.nim}</span></p>
+            </div>
+            <div className="member-card">
+              <h4>Bendahara 2</h4>
+              <p>{pageData.bendahara2.nama}<span className="member-nim">{pageData.bendahara2.nim}</span></p>
+            </div>
+            <div className="member-card">
+              <h4>Bendahara 3</h4>
+              <p>{pageData.bendahara3.nama}<span className="member-nim">{pageData.bendahara3.nim}</span></p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="divisi-section">

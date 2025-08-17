@@ -6,6 +6,68 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Beranda.css';
 
+// Import images for divisions
+import imgPengurusHarian from '../assets/divisi/pengurus-harian/sertijab.JPG';
+import imgInternal from '../assets/divisi/internal/makrab24.JPG';
+import imgEksternal from '../assets/divisi/eksternal/egs.JPG';
+import imgRistek from '../assets/divisi/ristek/seminar24.JPG';
+import imgPema from '../assets/divisi/pema/ngonten1.JPG';
+import imgKominfo from '../assets/divisi/kominfo/F-13.jpg';
+
+// Data untuk pratinjau divisi di Beranda
+const divisiPreviewData = [
+  { 
+    id: 'pengurus-harian', 
+    name: 'Pengurus Harian', 
+    description: 'Sebagai inti dari organisasi, Pengurus Harian bertanggung jawab penuh atas arah strategis dan koordinasi seluruh program kerja. Divisi ini memastikan semua kegiatan berjalan sinergis dan sesuai dengan visi misi HIMA.', 
+    imageUrl: imgPengurusHarian,
+    link: '/divisi/pengurus-harian'
+  },
+  { 
+    id: 'internal', 
+    name: 'Internal', 
+    description: 'Divisi Internal berfokus pada penguatan rasa kekeluargaan dan solidaritas di antara seluruh anggota HIMA. Mereka merancang berbagai kegiatan yang bertujuan untuk meningkatkan interaksi dan keakraban internal.', 
+    imageUrl: imgInternal,
+    link: '/divisi/internal'
+  },
+  { 
+    id: 'eksternal', 
+    name: 'Eksternal', 
+    description: 'Menjadi wajah HIMA di luar kampus, Divisi Eksternal bertugas membangun dan memelihara hubungan strategis dengan himpunan mahasiswa lain, alumni, institusi pendidikan, dan mitra industri untuk membuka peluang kolaborasi.', 
+    imageUrl: imgEksternal,
+    link: '/divisi/eksternal'
+  },
+  { 
+    id: 'ristek', 
+    name: 'Riset dan Teknologi', 
+    description: 'Sebagai pusat inovasi, Ristek menjadi wadah bagi mahasiswa untuk mengeksplorasi, belajar, dan mengembangkan potensi di bidang riset dan teknologi. Divisi ini aktif menyelenggarakan workshop, seminar, dan proyek-proyek kreatif.', 
+    imageUrl: imgRistek,
+    link: '/divisi/ristek'
+  },
+  { 
+    id: 'pema', 
+    name: 'Pengembangan Mahasiswa', 
+    description: 'Divisi Pema berdedikasi untuk meningkatkan kualitas sumber daya mahasiswa, baik dari segi akademis maupun non-akademis. Mereka merancang program pelatihan untuk mengasah soft skill dan hard skill yang relevan.', 
+    imageUrl: imgPema,
+    link: '/divisi/pema'
+  },
+  { 
+    id: 'kominfo', 
+    name: 'Komunikasi dan Informasi', 
+    description: 'Kominfo adalah garda terdepan dalam penyebaran informasi dan manajemen citra HIMA. Divisi ini mengelola semua kanal media sosial, website, dan bertanggung jawab untuk memastikan semua informasi penting tersampaikan dengan baik.', 
+    imageUrl: imgKominfo,
+    link: '/divisi/kominfo'
+  },
+  { 
+    id: 'danus', 
+    name: 'Dana Usaha', 
+    description: 'Menjadi tulang punggung finansial organisasi, Divisi Dana Usaha secara kreatif mencari dan mengelola sumber pendanaan. Mereka menjalankan berbagai inisiatif kewirausahaan untuk mendukung keberlangsungan seluruh program kerja HIMA.', 
+    imageUrl: 'https://via.placeholder.com/400x225.png?text=Divisi+Danus',
+    link: '/divisi/danus'
+  },
+];
+
+
 const Beranda = () => {
   const [kegiatanList, setKegiatanList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -85,6 +147,26 @@ const Beranda = () => {
           ))}
         </Slider>
       </section>
+
+      {/* Divisi Pratinjau Section */}
+      <section className="divisi-pratinjau">
+        <h2>Kenali Divisi Kami</h2>
+        <div className="divisi-feature-list">
+          {divisiPreviewData.map((divisi, index) => (
+            <div className={`feature-row ${index % 2 === 0 ? 'feature-row-even' : 'feature-row-odd'}`} key={divisi.id}>
+              <div className="feature-image">
+                <img src={divisi.imageUrl} alt={divisi.name} />
+              </div>
+              <div className="feature-content">
+                <h3>{divisi.name}</h3>
+                <p>{divisi.description}</p>
+                <Link to={divisi.link} className="text-link">Pelajari lebih lanjut...</Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
 
       {/* Kegiatan Pratinjau Section */}
       <section className="kegiatan-pratinjau">

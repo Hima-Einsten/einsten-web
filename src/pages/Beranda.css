@@ -169,3 +169,69 @@
   text-overflow: ellipsis;
   line-clamp: 6;
 }
+
+/* Divisi Pratinjau Section - Feature List Style */
+.divisi-pratinjau {
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  text-align: left;
+}
+
+.divisi-pratinjau h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #031742;
+}
+
+.divisi-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.feature-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.feature-row-odd {
+  flex-direction: row-reverse;
+}
+
+.feature-image {
+  flex: 1;
+  max-width: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.feature-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-content h3 {
+  font-size: 1.8rem;
+  color: #031742;
+  margin-bottom: 1rem;
+}
+
+.feature-content p {
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.feature-content .text-link {
+  font-weight: bold;
+}
