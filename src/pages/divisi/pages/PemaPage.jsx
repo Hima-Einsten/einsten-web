@@ -5,11 +5,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 //import gambar
 import pema1 from '../../../assets/divisi/pema/ngonten1.JPG';
 
+const staticData = {
+  description: 'Divisi Pengembangan Mahasiswa (Pema) berfokus pada peningkatan soft skills dan hard skills anggota di luar bidang akademik. Pema menyelenggarakan seminar, pelatihan kepemimpinan, dan program pengembangan diri lainnya untuk menyiapkan mahasiswa menghadapi dunia kerja.',
+  images: [pema1]
+};
+
 const PemaPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const staticImages = [pema1];
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -49,9 +52,9 @@ const PemaPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Pengembangan Mahasiswa (Pema)'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>

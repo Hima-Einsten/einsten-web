@@ -5,11 +5,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 //import gambar divisi
 import eksternal1 from '../../../assets/divisi/eksternal/egs.JPG';
 
+const staticData = {
+  description: 'Divisi Eksternal menjadi jembatan penghubung antara himpunan dengan pihak luar, seperti himpunan lain, alumni, perusahaan, dan masyarakat. Divisi ini bertanggung jawab membangun citra positif dan menjalin kerja sama yang strategis.',
+  images: [eksternal1]
+};
+
 const EksternalPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const staticImages = [eksternal1];
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -49,9 +52,9 @@ const EksternalPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Eksternal'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>

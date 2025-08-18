@@ -6,12 +6,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import kominfoImage1 from '../../../assets/divisi/kominfo/F-13.jpg';
 import kominfoImage2 from '../../../assets/divisi/kominfo/Linux_Penguin.jpg';
 
+const staticData = {
+  description: 'Divisi Komunikasi dan Informasi (Kominfo) bertanggung jawab atas penyebaran informasi dan publikasi seluruh kegiatan himpunan. Kominfo mengelola media sosial, website, dan mading untuk memastikan informasi tersampaikan secara efektif kepada seluruh anggota dan pihak luar.',
+  images: [kominfoImage1, kominfoImage2]
+};
+
 const KominfoPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  // Data gambar statis karena tidak disimpan di DB
-  const staticImages = [kominfoImage1, kominfoImage2];
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -21,7 +23,6 @@ const KominfoPage = () => {
       try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // Set default empty array for members and proker if they don't exist
           setDivisionData({
             ...docSnap.data(),
             members: docSnap.data().members || [],
@@ -52,9 +53,9 @@ const KominfoPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Komunikasi dan Informasi (Kominfo)'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>

@@ -6,11 +6,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import ristek1 from '../../../assets/divisi/ristek/seminar24.JPG';
 import ristek2 from '../../../assets/divisi/ristek/seminar1.JPG';
 
+const staticData = {
+  description: 'Divisi Riset dan Teknologi (Ristek) adalah wadah bagi mahasiswa untuk mengembangkan minat dan bakat di bidang penelitian dan teknologi. Ristek mengadakan pelatihan, workshop, dan proyek-proyek inovatif untuk meningkatkan kompetensi akademik anggota.',
+  images: [ristek1, ristek2]
+};
+
 const RistekPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const staticImages = [ristek1, ristek2];
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -50,9 +53,9 @@ const RistekPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Riset dan Teknologi (Ristek)'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>

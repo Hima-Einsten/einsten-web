@@ -6,11 +6,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import internal1 from '../../../assets/divisi/internal/makrab24.JPG';
 import internal2 from '../../../assets/divisi/internal/ngusik23.JPG';
 
+const staticData = {
+  description: 'Divisi Internal berfokus pada pengembangan dan kesejahteraan anggota himpunan. Tugas utamanya adalah mempererat hubungan antar anggota, mengelola kaderisasi, serta mengadakan kegiatan yang meningkatkan rasa kekeluargaan dan solidaritas.',
+  images: [internal1, internal2]
+};
+
 const InternalPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const staticImages = [internal1, internal2];
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -50,9 +53,9 @@ const InternalPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Internal'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>

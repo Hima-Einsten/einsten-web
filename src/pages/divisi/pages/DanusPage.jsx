@@ -5,11 +5,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 // Tidak ada gambar di direktori, jadi kita biarkan kosong untuk saat ini
 // import danus1 from '../../../assets/divisi/danus/gambar.jpg';
 
+const staticData = {
+  description: 'Divisi Dana Usaha (Danus) memiliki peran penting dalam menjaga stabilitas keuangan himpunan. Divisi ini secara kreatif mencari sumber pendanaan melalui kegiatan wirausaha, penjualan merchandise, dan sponsorship untuk mendukung program kerja himpunan.',
+  images: [] // Kosongkan jika tidak ada gambar
+};
+
 const DanusPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const staticImages = []; // Kosongkan jika tidak ada gambar
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -49,9 +52,9 @@ const DanusPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Dana Usaha (Danus)'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>

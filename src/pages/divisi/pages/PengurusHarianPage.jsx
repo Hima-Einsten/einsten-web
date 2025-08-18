@@ -5,11 +5,14 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 //import gambar divisi
 import ph1 from '../../../assets/divisi/pengurus-harian/sertijab.JPG';
 
+const staticData = {
+  description: 'Pengurus Harian (PH) adalah badan eksekutif utama himpunan yang bertanggung jawab atas koordinasi, pengawasan, dan pelaksanaan seluruh program kerja. PH memastikan semua divisi berjalan sinergis untuk mencapai visi dan misi himpunan.',
+  images: [ph1]
+};
+
 const PengurusHarianPage = () => {
   const [divisionData, setDivisionData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const staticImages = [ph1];
 
   useEffect(() => {
     const fetchDivisionData = async () => {
@@ -48,9 +51,9 @@ const PengurusHarianPage = () => {
   }
 
   return (
-    <DivisiLayout images={staticImages}>
+    <DivisiLayout images={staticData.images}>
       <h1>{divisionData.name || 'Pengurus Harian'}</h1>
-      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
+      <p>{staticData.description}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>
