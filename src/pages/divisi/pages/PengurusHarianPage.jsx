@@ -1,38 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DivisiLayout from '../layout/DivisiLayout';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 //import gambar divisi
 import ph1 from '../../../assets/divisi/pengurus-harian/sertijab.JPG';
 
-
-// Data sekarang didefinisikan langsung di dalam komponen halaman
-const pageData = {
-  title: 'Pengurus Harian',
-  description: 'Pengurus Harian (PH) adalah badan eksekutif utama himpunan yang bertanggung jawab atas koordinasi, pengawasan, dan pelaksanaan seluruh program kerja. PH memastikan semua divisi berjalan sinergis untuk mencapai visi dan misi himpunan.',
-  ketuaHimpunan: { nama: 'Haidar Umar', nim: '10200001' },
-  wakilKetuaHimpunan: { nama: 'Nama Wakil Ketua Himpunan', nim: '10200002' },
-  sekretaris1: { nama: 'Ni Mas aqila Najwan', nim: '10200003' },
-  sekretaris2: { nama: 'Naila Qarirah', nim: '10200004' },
-  Kesekretariatan: { nama: 'Rakan Ibrahim Widjisasono', nim: '10200005' },
-  bendahara1: { nama: 'Fara Ulvia', nim: '10200004' },
-  bendahara2: { nama: 'Relvina', nim: '10200006' },
-  bendahara3: { nama: 'Muhammad Dzaki Mumtazi', nim: '10200007' },
-  programKerja: [
-    'Rapat Kerja dan Musyawarah Besar',
-    'Mengawasi dan Mengevaluasi Kinerja Seluruh Divisi',
-    'Menjalin Hubungan dengan Pihak Jurusan dan Fakultas',
-    'Laporan Pertanggungjawaban Akhir Periode',
-  ],
-  images: [
-    ph1,
-  ]
-};
-
 const PengurusHarianPage = () => {
+  const [divisionData, setDivisionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const staticImages = [ph1];
+
+  useEffect(() => {
+    const fetchDivisionData = async () => {
+      setLoading(true);
+      const db = getFirestore();
+      const docRef = doc(db, "divisi", "pengurus-harian");
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setDivisionData({
+            ...docSnap.data(),
+            members: docSnap.data().members || [],
+            proker: docSnap.data().proker || [],
+          });
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDivisionData();
+  }, []);
+
+  const findMember = (position) => divisionData?.members.find(m => m.position === position);
+
+  if (loading) {
+    return <p>Memuat data divisi...</p>;
+  }
+
+  if (!divisionData) {
+    return <p>Data divisi tidak ditemukan.</p>;
+  }
+
   return (
-    <DivisiLayout images={pageData.images}>
-      <h1>{pageData.title}</h1>
-      <p>{pageData.description}</p>
+    <DivisiLayout images={staticImages}>
+      <h1>{divisionData.name || 'Pengurus Harian'}</h1>
+      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>
@@ -40,29 +58,29 @@ const PengurusHarianPage = () => {
           <div className="ketua-himpunan-container">
             <div className="member-card">
               <h4>Ketua Himpunan</h4>
-              <p>{pageData.ketuaHimpunan.nama}<span className="member-nim">{pageData.ketuaHimpunan.nim}</span></p>
+              <p>{findMember('Ketua HIMA')?.name}<span className="member-nim">{findMember('Ketua HIMA')?.nim}</span></p>
             </div>
-            {/* Uncomment ini jika memiliki Wakil Ketua Himpunan
-            <div className="member-card">
-              <h4>Wakil Ketua Himpunan</h4>
-              <p>{pageData.wakilKetuaHimpunan?.nama}<span className="member-nim">{pageData.wakilKetuaHimpunan?.nim}</span></p>
-            </div>
-            */}
+            {findMember('Wakil Ketua HIMA') && (
+              <div className="member-card">
+                <h4>Wakil Ketua Himpunan</h4>
+                <p>{findMember('Wakil Ketua HIMA')?.name}<span className="member-nim">{findMember('Wakil Ketua HIMA')?.nim}</span></p>
+              </div>
+            )}
           </div>
 
           <div className="sekretaris-container">
             <h3>Sekretaris</h3>
             <div className="member-card">
               <h4>Sekretaris Umum</h4>
-              <p>{pageData.sekretaris1.nama}<span className="member-nim">{pageData.sekretaris1.nim}</span></p>
+              <p>{findMember('Sekretaris Umum')?.name}<span className="member-nim">{findMember('Sekretaris Umum')?.nim}</span></p>
             </div>
             <div className="member-card">
               <h4>Sekretaris 2</h4>
-              <p>{pageData.sekretaris2.nama}<span className="member-nim">{pageData.sekretaris2.nim}</span></p>
+              <p>{findMember('Sekretaris 2')?.name}<span className="member-nim">{findMember('Sekretaris 2')?.nim}</span></p>
             </div>
             <div className="member-card">
               <h4>Kesekretariatan</h4>
-              <p>{pageData.Kesekretariatan.nama}<span className="member-nim">{pageData.Kesekretariatan.nim}</span></p>
+              <p>{findMember('Kesekretariatan')?.name}<span className="member-nim">{findMember('Kesekretariatan')?.nim}</span></p>
             </div>
           </div>
 
@@ -70,15 +88,15 @@ const PengurusHarianPage = () => {
             <h3>Bendahara</h3>
             <div className="member-card">
               <h4>Bendahara Umum</h4>
-              <p>{pageData.bendahara1.nama}<span className="member-nim">{pageData.bendahara1.nim}</span></p>
+              <p>{findMember('Bendahara Umum')?.name}<span className="member-nim">{findMember('Bendahara Umum')?.nim}</span></p>
             </div>
             <div className="member-card">
               <h4>Bendahara 2</h4>
-              <p>{pageData.bendahara2.nama}<span className="member-nim">{pageData.bendahara2.nim}</span></p>
+              <p>{findMember('Bendahara 2')?.name}<span className="member-nim">{findMember('Bendahara 2')?.nim}</span></p>
             </div>
             <div className="member-card">
               <h4>Bendahara 3</h4>
-              <p>{pageData.bendahara3.nama}<span className="member-nim">{pageData.bendahara3.nim}</span></p>
+              <p>{findMember('Bendahara 3')?.name}<span className="member-nim">{findMember('Bendahara 3')?.nim}</span></p>
             </div>
           </div>
         </div>
@@ -87,7 +105,7 @@ const PengurusHarianPage = () => {
       <div className="divisi-section">
         <h2>Program Kerja Utama</h2>
         <ul className="proker-list">
-          {pageData.programKerja.map((proker, index) => (
+          {divisionData.proker.map((proker, index) => (
             <li key={index}>{proker}</li>
           ))}
         </ul>

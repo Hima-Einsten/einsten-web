@@ -1,61 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DivisiLayout from '../layout/DivisiLayout';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 //import gambar divisi
 import ristek1 from '../../../assets/divisi/ristek/seminar24.JPG';
 import ristek2 from '../../../assets/divisi/ristek/seminar1.JPG';
 
-
-const pageData = {
-  title: 'Riset dan Teknologi (Ristek)',
-  description: 'Divisi Riset dan Teknologi (Ristek) adalah wadah bagi mahasiswa untuk mengembangkan minat dan bakat di bidang penelitian dan teknologi. Ristek mengadakan pelatihan, workshop, dan proyek-proyek inovatif untuk meningkatkan kompetensi akademik anggota.',
-  kepalaDivisi: { nama: 'Nur Ihsanudin', nim: '022300013' },
-  anggota: [
-    { nama: 'Muhammad Izzatul Islam', nim: '10300002' },
-    { nama: 'Muhammad Elwas Yusuf', nim: '10300003' },
-    { nama: 'Evita Rahmadani', nim: '10300004' },
-    { nama: 'Alfina Khairani', nim: '10300005' },
-    { nama: 'Mirza Maulana Rusdi', nim: '10300006' },
-    { nama: 'Anggota Ristek 6', nim: '10300007' },
-    { nama: 'Anggota Ristek 7', nim: '10300008' },
-    { nama: 'Anggota Ristek 8', nim: '10300009' },
-    { nama: 'Anggota Ristek 9', nim: '10300010' },
-    { nama: 'Anggota Ristek 10', nim: '10300011' },
-    { nama: 'Anggota Ristek 11', nim: '10300012' },
-  ],
-  programKerja: [
-    'Pelatihan Software Development (Web/Mobile)',
-    'Workshop Internet of Things (IoT)',
-    'Kelompok Studi Robotika',
-    'Mengadakan Kompetisi Internal Coding',
-    'Kunjungan Industri ke Perusahaan Teknologi',
-  ],
-  images: [
-    ristek1,
-    ristek2,
-  ]
-};
-
 const RistekPage = () => {
+  const [divisionData, setDivisionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const staticImages = [ristek1, ristek2];
+
+  useEffect(() => {
+    const fetchDivisionData = async () => {
+      setLoading(true);
+      const db = getFirestore();
+      const docRef = doc(db, "divisi", "ristek");
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setDivisionData({
+            ...docSnap.data(),
+            members: docSnap.data().members || [],
+            proker: docSnap.data().proker || [],
+          });
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDivisionData();
+  }, []);
+
+  const kepalaDivisi = divisionData?.members.find(m => m.position === 'Kepala Divisi');
+  const anggotaBiasa = divisionData?.members.filter(m => m.position !== 'Kepala Divisi');
+
+  if (loading) {
+    return <p>Memuat data divisi...</p>;
+  }
+
+  if (!divisionData) {
+    return <p>Data divisi tidak ditemukan.</p>;
+  }
+
   return (
-    <DivisiLayout images={pageData.images}>
-      <h1>{pageData.title}</h1>
-      <p>{pageData.description}</p>
+    <DivisiLayout images={staticImages}>
+      <h1>{divisionData.name || 'Riset dan Teknologi (Ristek)'}</h1>
+      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>
-        <div className='kadiv-section'>
-        <h4>Kepala Divisi</h4>
-        <p>
-          {pageData.kepalaDivisi.nama}
-          <span className="member-nim">{pageData.kepalaDivisi.nim}</span>
-        </p>
-        </div>
+        {kepalaDivisi && (
+          <div className='kadiv-section'>
+            <h4>Kepala Divisi</h4>
+            <p>
+              {kepalaDivisi.name}
+              <span className="member-nim">{kepalaDivisi.nim}</span>
+            </p>
+          </div>
+        )}
         <h4>Anggota Divisi</h4>
         <ul className="member-list">
-          {pageData.anggota.map((anggota, index) => (
+          {anggotaBiasa.map((anggota, index) => (
             <li key={index}>
-              {anggota.nama}
+              {anggota.name}
               <span className="member-nim">{anggota.nim}</span>
             </li>
           ))}
@@ -65,7 +79,7 @@ const RistekPage = () => {
       <div className="divisi-section">
         <h2>Program Kerja</h2>
         <ul className="proker-list">
-          {pageData.programKerja.map((proker, index) => (
+          {divisionData.proker.map((proker, index) => (
             <li key={index}>{proker}</li>
           ))}
         </ul>

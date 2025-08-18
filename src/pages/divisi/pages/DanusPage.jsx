@@ -1,55 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DivisiLayout from '../layout/DivisiLayout';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
-//import gambar divisi
-//import danus1 from '../../../assets/divisi/danus/gambar.jpg';
-
-const pageData = {
-  title: 'Dana Usaha (Danus)',
-  description: 'Divisi Dana Usaha (Danus) memiliki peran penting dalam menjaga stabilitas keuangan himpunan. Divisi ini secara kreatif mencari sumber pendanaan melalui kegiatan wirausaha, penjualan merchandise, dan sponsorship untuk mendukung program kerja himpunan.',
-  kepalaDivisi: { nama: 'Theresa Angreeni', nim: '10600001' },
-  anggota: [
-    { nama: 'Anggota Danus 1', nim: '10600002' },
-    { nama: 'Anggota Danus 2', nim: '10600003' },
-    { nama: 'Anggota Danus 3', nim: '10600004' },
-    { nama: 'Anggota Danus 4', nim: '10600005' },
-    { nama: 'Anggota Danus 5', nim: '10600006' },
-    { nama: 'Anggota Danus 6', nim: '10600007' },
-    { nama: 'Anggota Danus 7', nim: '10600008' },
-    { nama: 'Anggota Danus 8', nim: '10600009' },
-    { nama: 'Anggota Danus 9', nim: '10600010' },
-  ],
-  programKerja: [
-    'Penjualan Merchandise Himpunan (Jaket, Kaos, Gantungan Kunci)',
-    'Membuka Stand Makanan dan Minuman di Acara Kampus',
-    'Pencarian dan Pengelolaan Sponsorship untuk Kegiatan',
-    'Membuat Katalog Produk Usaha',
-  ],
-  images: [
-    '/assets/divisi/danus/gallery-1.jpg',
-  ]
-};
+// Tidak ada gambar di direktori, jadi kita biarkan kosong untuk saat ini
+// import danus1 from '../../../assets/divisi/danus/gambar.jpg';
 
 const DanusPage = () => {
+  const [divisionData, setDivisionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const staticImages = []; // Kosongkan jika tidak ada gambar
+
+  useEffect(() => {
+    const fetchDivisionData = async () => {
+      setLoading(true);
+      const db = getFirestore();
+      const docRef = doc(db, "divisi", "danus");
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setDivisionData({
+            ...docSnap.data(),
+            members: docSnap.data().members || [],
+            proker: docSnap.data().proker || [],
+          });
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDivisionData();
+  }, []);
+
+  const kepalaDivisi = divisionData?.members.find(m => m.position === 'Kepala Divisi');
+  const anggotaBiasa = divisionData?.members.filter(m => m.position !== 'Kepala Divisi');
+
+  if (loading) {
+    return <p>Memuat data divisi...</p>;
+  }
+
+  if (!divisionData) {
+    return <p>Data divisi tidak ditemukan.</p>;
+  }
+
   return (
-    <DivisiLayout images={pageData.images}>
-      <h1>{pageData.title}</h1>
-      <p>{pageData.description}</p>
+    <DivisiLayout images={staticImages}>
+      <h1>{divisionData.name || 'Dana Usaha (Danus)'}</h1>
+      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>
-        <div className='kadiv-section'>
-        <h4>Kepala Divisi</h4>
-        <p>
-          {pageData.kepalaDivisi.nama}
-          <span className="member-nim">{pageData.kepalaDivisi.nim}</span>
-        </p>
-        </div>
+        {kepalaDivisi && (
+          <div className='kadiv-section'>
+            <h4>Kepala Divisi</h4>
+            <p>
+              {kepalaDivisi.name}
+              <span className="member-nim">{kepalaDivisi.nim}</span>
+            </p>
+          </div>
+        )}
         <h4>Anggota Divisi</h4>
         <ul className="member-list">
-          {pageData.anggota.map((anggota, index) => (
+          {anggotaBiasa.map((anggota, index) => (
             <li key={index}>
-              {anggota.nama}
+              {anggota.name}
               <span className="member-nim">{anggota.nim}</span>
             </li>
           ))}
@@ -59,7 +78,7 @@ const DanusPage = () => {
       <div className="divisi-section">
         <h2>Program Kerja</h2>
         <ul className="proker-list">
-          {pageData.programKerja.map((proker, index) => (
+          {divisionData.proker.map((proker, index) => (
             <li key={index}>{proker}</li>
           ))}
         </ul>

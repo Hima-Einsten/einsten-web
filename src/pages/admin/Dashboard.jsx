@@ -28,6 +28,12 @@ const Dashboard = () => {
       <p>Ini adalah pusat kendali untuk website HIMA EINSTEN.COM. Dari sini Anda bisa mengelola konten website.</p>
       
       <div className="management-links">
+        <Link to="/admin/manage-divisi" className="manage-card-link">
+          <div className="manage-card">
+            <h3>Manage Divisi</h3>
+            <p>Ubah data anggota dan program kerja per divisi.</p>
+          </div>
+        </Link>
         <Link to="/admin/manage-alumni" className="manage-card-link">
           <div className="manage-card">
             <h3>Manage Alumni</h3>

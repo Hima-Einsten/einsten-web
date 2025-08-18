@@ -1,61 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DivisiLayout from '../layout/DivisiLayout';
-
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 //import gambar divisi
 import internal1 from '../../../assets/divisi/internal/makrab24.JPG';
 import internal2 from '../../../assets/divisi/internal/ngusik23.JPG';
 
-
-const pageData = {
-  title: 'Internal',
-  description: 'Divisi Internal berfokus pada pengembangan dan kesejahteraan anggota himpunan. Tugas utamanya adalah mempererat hubungan antar anggota, mengelola kaderisasi, serta mengadakan kegiatan yang meningkatkan rasa kekeluargaan dan solidaritas.',
-  kepalaDivisi: { nama: 'Muhammad Hafidz Karisma Putra', nim: '10400001' },
-  anggota: [
-    { nama: 'Anggota Internal 1', nim: '10400002' },
-    { nama: 'Anggota Internal 2', nim: '10400003' },
-    { nama: 'Anggota Internal 3', nim: '10400004' },
-    { nama: 'Anggota Internal 4', nim: '10400005' },
-    { nama: 'Anggota Internal 5', nim: '10400006' },
-    { nama: 'Anggota Internal 6', nim: '10400007' },
-    { nama: 'Anggota Internal 7', nim: '10400008' },
-    { nama: 'Anggota Internal 8', nim: '10400009' },
-    { nama: 'Anggota Internal 9', nim: '10400010' },
-    { nama: 'Anggota Internal 10', nim: '10400011' },
-  ],
-  programKerja: [
-    'Malam Keakraban (Makrab) Anggota',
-    'Penyambutan Mahasiswa Baru',
-    'Kegiatan Olahraga Bersama (Futsal, Badminton)',
-    'Manajemen Database Anggota',
-    'Perayaan Ulang Tahun Anggota',
-  ],
-  images: [
-    internal1,
-    internal2,
-  ]
-};
-
 const InternalPage = () => {
+  const [divisionData, setDivisionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const staticImages = [internal1, internal2];
+
+  useEffect(() => {
+    const fetchDivisionData = async () => {
+      setLoading(true);
+      const db = getFirestore();
+      const docRef = doc(db, "divisi", "internal");
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setDivisionData({
+            ...docSnap.data(),
+            members: docSnap.data().members || [],
+            proker: docSnap.data().proker || [],
+          });
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDivisionData();
+  }, []);
+
+  const kepalaDivisi = divisionData?.members.find(m => m.position === 'Kepala Divisi');
+  const anggotaBiasa = divisionData?.members.filter(m => m.position !== 'Kepala Divisi');
+
+  if (loading) {
+    return <p>Memuat data divisi...</p>;
+  }
+
+  if (!divisionData) {
+    return <p>Data divisi tidak ditemukan.</p>;
+  }
+
   return (
-    <DivisiLayout images={pageData.images}>
-      <h1>{pageData.title}</h1>
-      <p>{pageData.description}</p>
+    <DivisiLayout images={staticImages}>
+      <h1>{divisionData.name || 'Internal'}</h1>
+      <p>{divisionData.description || 'Deskripsi tidak tersedia.'}</p>
 
       <div className="divisi-section">
         <h2>Struktur Divisi</h2>
-        <div className='kadiv-section'>
-        <h4>Kepala Divisi</h4>
-        <p>
-          {pageData.kepalaDivisi.nama}
-          <span className="member-nim">{pageData.kepalaDivisi.nim}</span>
-        </p>
-        </div>
+        {kepalaDivisi && (
+          <div className='kadiv-section'>
+            <h4>Kepala Divisi</h4>
+            <p>
+              {kepalaDivisi.name}
+              <span className="member-nim">{kepalaDivisi.nim}</span>
+            </p>
+          </div>
+        )}
         <h4>Anggota Divisi</h4>
         <ul className="member-list">
-          {pageData.anggota.map((anggota, index) => (
+          {anggotaBiasa.map((anggota, index) => (
             <li key={index}>
-              {anggota.nama}
+              {anggota.name}
               <span className="member-nim">{anggota.nim}</span>
             </li>
           ))}
@@ -65,7 +79,7 @@ const InternalPage = () => {
       <div className="divisi-section">
         <h2>Program Kerja</h2>
         <ul className="proker-list">
-          {pageData.programKerja.map((proker, index) => (
+          {divisionData.proker.map((proker, index) => (
             <li key={index}>{proker}</li>
           ))}
         </ul>

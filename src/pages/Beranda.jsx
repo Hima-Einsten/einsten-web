@@ -25,42 +25,42 @@ const divisiPreviewData = [
   },
   { 
     id: 'internal', 
-    name: 'Internal', 
+    name: 'Divisi Internal', 
     description: 'Divisi Internal berfokus pada penguatan rasa kekeluargaan dan solidaritas di antara seluruh anggota HIMA. Mereka merancang berbagai kegiatan yang bertujuan untuk meningkatkan interaksi dan keakraban internal.', 
     imageUrl: imgInternal,
     link: '/divisi/internal'
   },
   { 
     id: 'eksternal', 
-    name: 'Eksternal', 
+    name: 'Divisi Eksternal', 
     description: 'Menjadi wajah HIMA di luar kampus, Divisi Eksternal bertugas membangun dan memelihara hubungan strategis dengan himpunan mahasiswa lain, alumni, institusi pendidikan, dan mitra industri untuk membuka peluang kolaborasi.', 
     imageUrl: imgEksternal,
     link: '/divisi/eksternal'
   },
   { 
     id: 'ristek', 
-    name: 'Riset dan Teknologi', 
+    name: 'Divisi Riset dan Teknologi (Ristek)', 
     description: 'Sebagai pusat inovasi, Ristek menjadi wadah bagi mahasiswa untuk mengeksplorasi, belajar, dan mengembangkan potensi di bidang riset dan teknologi. Divisi ini aktif menyelenggarakan workshop, seminar, dan proyek-proyek kreatif.', 
     imageUrl: imgRistek,
     link: '/divisi/ristek'
   },
   { 
     id: 'pema', 
-    name: 'Pengembangan Mahasiswa', 
+    name: 'Divisi Pengembangan Mahasiswa (Pema)', 
     description: 'Divisi Pema berdedikasi untuk meningkatkan kualitas sumber daya mahasiswa, baik dari segi akademis maupun non-akademis. Mereka merancang program pelatihan untuk mengasah soft skill dan hard skill yang relevan.', 
     imageUrl: imgPema,
     link: '/divisi/pema'
   },
   { 
     id: 'kominfo', 
-    name: 'Komunikasi dan Informasi', 
+    name: 'Divisi Komunikasi dan Informasi (Kominfo)', 
     description: 'Kominfo adalah garda terdepan dalam penyebaran informasi dan manajemen citra HIMA. Divisi ini mengelola semua kanal media sosial, website, dan bertanggung jawab untuk memastikan semua informasi penting tersampaikan dengan baik.', 
     imageUrl: imgKominfo,
     link: '/divisi/kominfo'
   },
   { 
     id: 'danus', 
-    name: 'Dana Usaha', 
+    name: 'Divisi Dana Usaha (Danus)', 
     description: 'Menjadi tulang punggung finansial organisasi, Divisi Dana Usaha secara kreatif mencari dan mengelola sumber pendanaan. Mereka menjalankan berbagai inisiatif kewirausahaan untuk mendukung keberlangsungan seluruh program kerja HIMA.', 
     imageUrl: 'https://via.placeholder.com/400x225.png?text=Divisi+Danus',
     link: '/divisi/danus'
@@ -71,6 +71,7 @@ const divisiPreviewData = [
 const Beranda = () => {
   const [kegiatanList, setKegiatanList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const fetchKegiatan = async () => {
@@ -89,7 +90,14 @@ const Beranda = () => {
       }
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
     fetchKegiatan();
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const testimonialSettings = {
@@ -101,6 +109,15 @@ const Beranda = () => {
     autoplay: true,
     autoplaySpeed: 6000,
     arrows: false
+  };
+
+  const divisiSliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
   };
 
   const testimonials = [
@@ -150,21 +167,38 @@ const Beranda = () => {
 
       {/* Divisi Pratinjau Section */}
       <section className="divisi-pratinjau">
-        <h2>Kenali Divisi Kami</h2>
-        <div className="divisi-feature-list">
-          {divisiPreviewData.map((divisi, index) => (
-            <div className={`feature-row ${index % 2 === 0 ? 'feature-row-even' : 'feature-row-odd'}`} key={divisi.id}>
-              <div className="feature-image">
-                <img src={divisi.imageUrl} alt={divisi.name} />
+        <h2>Ada divisi apa aja sih di Hima Einsten? </h2>
+        {isMobile ? (
+          <Slider {...divisiSliderSettings}>
+            {divisiPreviewData.map((divisi) => (
+              <div className="divisi-slide-card" key={divisi.id}>
+                <div className="feature-image">
+                  <img src={divisi.imageUrl} alt={divisi.name} />
+                </div>
+                <div className="feature-content">
+                  <h3>{divisi.name}</h3>
+                  <p>{divisi.description}</p>
+                  <Link to={divisi.link} className="text-link">Pelajari lebih lanjut...</Link>
+                </div>
               </div>
-              <div className="feature-content">
-                <h3>{divisi.name}</h3>
-                <p>{divisi.description}</p>
-                <Link to={divisi.link} className="text-link">Pelajari lebih lanjut...</Link>
+            ))}
+          </Slider>
+        ) : (
+          <div className="divisi-feature-list">
+            {divisiPreviewData.map((divisi, index) => (
+              <div className={`feature-row ${index % 2 === 0 ? 'feature-row-even' : 'feature-row-odd'}`} key={divisi.id}>
+                <div className="feature-image">
+                  <img src={divisi.imageUrl} alt={divisi.name} />
+                </div>
+                <div className="feature-content">
+                  <h3>{divisi.name}</h3>
+                  <p>{divisi.description}</p>
+                  <Link to={divisi.link} className="text-link">Pelajari lebih lanjut...</Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
 

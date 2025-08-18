@@ -235,3 +235,31 @@
 .feature-content .text-link {
   font-weight: bold;
 }
+
+/* Styles for Divisi Slider on Mobile */
+.divisi-slide-card {
+  padding: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center; /* Center content inside the slide */
+}
+
+.divisi-slide-card .feature-image {
+  max-width: 100%; /* Allow image to fill the container */
+  margin: 0 auto 1.5rem auto; /* Center image and add bottom margin */
+}
+
+.divisi-slide-card .feature-content {
+  text-align: center; /* Center text content */
+}
+
+.divisi-slide-card .feature-content h3 {
+  font-size: 1.5rem; /* Slightly smaller for mobile */
+}
+
+@media (max-width: 767px) {
+  .divisi-pratinjau {
+    padding: 2rem 1rem; /* Reduce padding on mobile */
+  }
+}

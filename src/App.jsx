@@ -13,6 +13,7 @@ import Login from './pages/Login.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
 import ManageAlumni from './pages/admin/ManageAlumni.jsx';
 import ManageKegiatan from './pages/admin/ManageKegiatan.jsx';
+import ManageDivisi from './pages/admin/ManageDivisi.jsx';
 import PengurusHarianPage from './pages/divisi/pages/PengurusHarianPage.jsx';
 import InternalPage from './pages/divisi/pages/InternalPage.jsx';
 import EksternalPage from './pages/divisi/pages/EksternalPage.jsx';
@@ -59,6 +60,10 @@ function App() {
               <Route 
                 path="/admin/manage-kegiatan" 
                 element={<ProtectedRoute><ManageKegiatan /></ProtectedRoute>} 
+              />
+              <Route 
+                path="/admin/manage-divisi" 
+                element={<ProtectedRoute><ManageDivisi /></ProtectedRoute>} 
               />
             </Routes>
           </div>
